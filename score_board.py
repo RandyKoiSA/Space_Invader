@@ -1,5 +1,5 @@
 import pygame.ftfont
-from ship import Ship
+from players.ship import Ship
 from pygame.sprite import Group
 
 

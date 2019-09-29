@@ -1,7 +1,7 @@
 import pygame
 import sys
 from pygame.locals import *
-from button import Button
+from customs.button import Button
 
 class MainMenuScreen:
     def __init__(self, hub):

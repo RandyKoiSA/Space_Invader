@@ -20,6 +20,9 @@ class Hub:
 
         self.shoot_sound = pygame.mixer.Sound('wav/Laser.wav')
         self.enemy_dies_sound = pygame.mixer.Sound('wav/Enemy_Dies.wav')
+        self.bg_music = pygame.mixer.Sound('wav/bg_music.wav')
+        self.prep_sounds()
+        self.play_bg_music()
 
         self.controller = {
             'up': False,
@@ -51,3 +54,12 @@ class Hub:
         # Display Main Menu Screen
         elif self.screen_mode == 3:
             self.high_score_screen.run()
+
+    def prep_sounds(self):
+        pygame.mixer.music.set_volume(0.1)
+        self.enemy_dies_sound.set_volume(0.2)
+        self.shoot_sound.set_volume(0.2)
+
+    def play_bg_music(self):
+        pygame.mixer.music.load('wav/bg_music.wav')
+        pygame.mixer.music.play(-1, 0.0)

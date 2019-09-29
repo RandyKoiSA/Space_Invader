@@ -3,19 +3,19 @@ class GameMode:
     def __init__(self, hub):
         """ Initializing default values """
         self.hub = hub
-        self.player_lives = 1
+        self.player_lives = 3
         self.speedup_scale = 1.1
-        self.ship_speed_factor = 1.5
+        self.ship_speed_factor = 3
         self.bullet_speed_factor = 3
-        self.enemy_speed_factor = 10
-        self.level = 1
+        self.enemy_speed_factor = 3
+        self.level = 0
         self.score = 0
         self.enemy_point_value = 50
         self.high_score = 0
 
     def reset_stats(self):
-        self.player_lives = 1
-        self.level = 1
+        self.player_lives = 3
+        self.level = 0
         self.score = 0
         self.enemy_point_value = 50
 
