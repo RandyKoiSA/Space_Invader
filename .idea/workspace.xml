@@ -2,11 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="922700f7-69ce-468a-b865-41ea7bd781dc" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/enemies/ufo_enemy.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ship_destruction.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gamemode.py" beforeDir="false" afterPath="$PROJECT_DIR$/gamemode.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/score_board.py" beforeDir="false" afterPath="$PROJECT_DIR$/score_board.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/enemies/ufo_enemy.py" beforeDir="false" afterPath="$PROJECT_DIR$/enemies/ufo_enemy.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/screens/game_screen.py" beforeDir="false" afterPath="$PROJECT_DIR$/screens/game_screen.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -125,5 +122,16 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/screens/game_screen.py</url>
+          <line>246</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

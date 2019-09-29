@@ -11,6 +11,7 @@ import random
 from enemies.enemy_two import EnemyTwo
 from enemies.enemy_three import EnemyThree
 from ship_destruction import ShipDestruction
+from enemies.ufo_enemy import UfoEnemy
 
 
 class GameScreen:
@@ -30,6 +31,8 @@ class GameScreen:
         self.destructions = Group()
         # Create a group for enemy destruction
         self.enemy_destructions = Group()
+        # Create a group for random ufos
+        self.ufos = Group()
 
         self.enemy_bullets = Group()
 
@@ -79,12 +82,20 @@ class GameScreen:
                     self.hub.controller['right'] = False
 
     def run_update(self):
+        # add ufo
+        random_ufo = random.randint(0, 500)
+        if random_ufo is 0:
+            print('ufo spawned')
+            ufo = UfoEnemy(self.hub)
+            self.ufos.add(ufo)
+
         self.player_ship.update()
         self.update_bullets()
         self.update_enemies()
         self.update_enemy_bullets()
         self.update_player_destruction()
         self.update_enemy_destruction()
+        self.update_ufos()
 
     def run_draw(self):
         self.screen.blit(self.bg_image, self.bg_rect)
@@ -95,6 +106,7 @@ class GameScreen:
         self.enemy_bullets.draw(self.screen)
         self.draw_player_destruction()
         self.draw_enemy_destruction()
+        self.draw_ufos()
 
     def add_bullet(self):
         new_bullet = Bullet(self.hub, self.player_ship)
@@ -163,6 +175,7 @@ class GameScreen:
             self.hub.game_mode.level += 1
             self.sb.prep_level()
 
+        # Enemies has been hit
         if collisions:
             for enemies in collisions.values():
                 self.hub.game_mode.score += self.hub.game_mode.enemy_point_value * len(enemies)
@@ -175,6 +188,16 @@ class GameScreen:
                     self.enemy_destructions.add(destruction)
 
             self.check_high_score()
+
+        # Ufo has been hit
+        collisions = pygame.sprite.groupcollide(self.bullets, self.ufos, True, True)
+        if collisions:
+            for ufos in collisions.values():
+                for ufo in ufos:
+                    self.hub.game_mode.score += ufo.value
+
+
+
 
     def ship_hit(self):
         """ Respond to ship being hit by aliens"""
@@ -231,6 +254,7 @@ class GameScreen:
         self.update_enemy_bullets_collision()
 
     def update_enemy_bullets_collision(self):
+        """ Checks if the player is hit by the enemy's bullet """
         for bullet in self.enemy_bullets:
             if bullet.rect.colliderect(self.player_ship) and self.hub.game_mode.death is False:
                 self.hub.game_mode.death = True
@@ -256,3 +280,14 @@ class GameScreen:
         for destruction in self.enemy_destructions:
             destruction.check_if_finished()
             destruction.update()
+
+    def update_ufos(self):
+        for ufo in self.ufos:
+            ufo.update()
+
+            if ufo.check_boundaries():
+                self.ufos.remove(ufo)
+
+    def draw_ufos(self):
+        for ufo in self.ufos:
+            ufo.draw()
