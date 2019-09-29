@@ -12,6 +12,7 @@ class GameMode:
         self.score = 0
         self.enemy_point_value = 50
         self.high_score = 0
+        self.death = False
 
     def reset_stats(self):
         self.player_lives = 3

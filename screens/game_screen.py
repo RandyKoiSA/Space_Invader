@@ -10,6 +10,7 @@ from score_board import ScoreBoard
 import random
 from enemies.enemy_two import EnemyTwo
 from enemies.enemy_three import EnemyThree
+from ship_destruction import ShipDestruction
 
 
 class GameScreen:
@@ -25,6 +26,10 @@ class GameScreen:
         self.bullets = Group()
         # Create a group for enemies
         self.enemies = Group()
+        # Create a group for player destruction
+        self.destructions = Group()
+        # Create a group for enemy destruction
+        self.enemy_destructions = Group()
 
         self.enemy_bullets = Group()
 
@@ -41,8 +46,6 @@ class GameScreen:
         self.bg_image = pygame.image.load('imgs/background.jpg')
         self.bg_image = pygame.transform.scale(self.bg_image, (self.hub.WINDOW_WIDTH, self.hub.WINDOW_HEIGHT))
         self.bg_rect = self.bg_image.get_rect()
-
-        self.live_finished = False
 
     def run(self):
         self.run_event()
@@ -80,6 +83,8 @@ class GameScreen:
         self.update_bullets()
         self.update_enemies()
         self.update_enemy_bullets()
+        self.update_player_destruction()
+        self.update_enemy_destruction()
 
     def run_draw(self):
         self.screen.blit(self.bg_image, self.bg_rect)
@@ -88,6 +93,8 @@ class GameScreen:
         self.draw_bullets()
         self.draw_enemies()
         self.enemy_bullets.draw(self.screen)
+        self.draw_player_destruction()
+        self.draw_enemy_destruction()
 
     def add_bullet(self):
         new_bullet = Bullet(self.hub, self.player_ship)
@@ -161,6 +168,12 @@ class GameScreen:
                 self.hub.game_mode.score += self.hub.game_mode.enemy_point_value * len(enemies)
                 self.sb.prep_score()
                 self.hub.enemy_dies_sound.play()
+
+                # add enemy destruction
+                for enemy in enemies:
+                    destruction = ShipDestruction(self.hub, enemy, type='enemy')
+                    self.enemy_destructions.add(destruction)
+
             self.check_high_score()
 
     def ship_hit(self):
@@ -219,6 +232,27 @@ class GameScreen:
 
     def update_enemy_bullets_collision(self):
         for bullet in self.enemy_bullets:
-            if bullet.rect.colliderect(self.player_ship):
-                self.ship_hit()
+            if bullet.rect.colliderect(self.player_ship) and self.hub.game_mode.death is False:
+                self.hub.game_mode.death = True
+                destruction = ShipDestruction(self.hub, self.player_ship)
+                self.destructions.add(destruction)
                 break
+
+    def draw_player_destruction(self):
+        for destruction in self.destructions:
+            destruction.draw()
+
+    def update_player_destruction(self):
+        for destruction in self.destructions:
+            destruction.update()
+            if destruction.check_if_finished():
+                self.ship_hit()
+
+    def draw_enemy_destruction(self):
+        for destruction in self.enemy_destructions:
+            destruction.draw()
+
+    def update_enemy_destruction(self):
+        for destruction in self.enemy_destructions:
+            destruction.check_if_finished()
+            destruction.update()
