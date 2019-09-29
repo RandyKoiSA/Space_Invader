@@ -14,7 +14,7 @@ class UfoEnemy(Sprite):
         self.image = pygame.image.load('imgs/ufoRed.png')
         self.rect = self.image.get_rect()
 
-        self.random_velocity = random.randint(3, 15)
+        self.random_velocity = random.randint(2, 5)
         self.value = random.randint(100, 200)
 
         self.prep_ufo()

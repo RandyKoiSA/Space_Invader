@@ -8,7 +8,7 @@ class EnemyLaser(Sprite):
         self.hub = hub
         self.screen = self.hub.main_screen
 
-        self.velocity = 1
+        self.velocity = 2
         self.width = 5
         self.height = 25
 

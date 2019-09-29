@@ -4,7 +4,7 @@ import pygame.ftfont
 class Text:
     """ Renders a text onto the screen """
     def __init__(self, screen, message,
-                 text_color=(0, 0, 0), background_color=(125, 125, 125),
+                 text_color=(255, 255, 255), background_color=(125, 125, 125),
                  pos_x=0, pos_y=0, font_size=48):
         """ Initialize default values """
 
@@ -12,10 +12,10 @@ class Text:
         self.message = message
         self.text_color = text_color
         self.background_color = background_color
-        self.font = pygame.font.SysFont(None, font_size)
+        self.font = pygame.font.Font('imgs/UIpack/Font/kenvector_future.ttf', 20)
 
         # Turn message into a rendered image and center on the button
-        self.msg_image = self.font.render(self.message, True, self.text_color, self.background_color)
+        self.msg_image = self.font.render(self.message, True, self.text_color)
         self.msg_image_rect = self.msg_image.get_rect()
 
         # Placement of the mesasge
@@ -28,4 +28,4 @@ class Text:
 
     def update_message(self):
         """ Updating the message if it ends up changing """
-        self.msg_image = self.font.render(self.message, True, self.text_color, self.background_color)
+        self.msg_image = self.font.render(self.message, True, self.text_color)

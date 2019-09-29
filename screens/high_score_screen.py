@@ -12,11 +12,17 @@ class HighScoreScreen:
         self.screen = hub.main_screen
         self.bg_color = (155, 155, 155)
 
+        # Background Image
+        self.bg_image = pygame.image.load('imgs/Backgrounds/black.png')
+        self.bg_image = pygame.transform.scale(self.bg_image, (self.hub.WINDOW_WIDTH, self.hub.WINDOW_HEIGHT))
+        self.bg_rect = self.bg_image.get_rect()
+
         # Create Title Text
         self.title_text = Text(self.screen, 'HIGH SCORE', background_color=self.bg_color)
 
         # Create back button
-        self.back_button = Button(self.hub, 'Back')
+        self.back_button_image = pygame.image.load('imgs/UIpack/PNG/blue_sliderleft.png')
+        self.back_button_rect = self.back_button_image.get_rect()
         self.prep_back_button()
 
         # Create Score Text
@@ -61,6 +67,7 @@ class HighScoreScreen:
 
     def run_draw(self):
         self.screen.fill(self.bg_color)
+        self.screen.blit(self.bg_image, self.bg_rect)
         # Draw all the text score
         for score_text in self.score_list.values():
             score_text.draw()
@@ -69,7 +76,7 @@ class HighScoreScreen:
         self.title_text.draw()
 
         # Draw Back Button
-        self.back_button.draw()
+        self.screen.blit(self.back_button_image, self.back_button_rect)
 
     def prep_text(self):
         # Prep Title
@@ -91,10 +98,9 @@ class HighScoreScreen:
                 self.score_list[index].update_message()
 
     def prep_back_button(self):
-        self.back_button.rect.left = self.screen.get_rect().left + 20
-        self.back_button.rect.top = self.screen.get_rect().top + 20
-        self.back_button.update_message_position()
+        self.back_button_rect.left = self.screen.get_rect().left + 20
+        self.back_button_rect.top = self.screen.get_rect().top + 20
 
     def button_pressed(self, mouse_x, mouse_y):
-        if self.back_button.rect.collidepoint(mouse_x, mouse_y):
+        if self.back_button_rect.collidepoint(mouse_x, mouse_y):
             self.hub.screen_mode = self.hub.screen_type['MainMenuScreen']

@@ -46,7 +46,7 @@ class GameScreen:
         self.sb = ScoreBoard(self.hub)
 
         # Background Image
-        self.bg_image = pygame.image.load('imgs/background.jpg')
+        self.bg_image = pygame.image.load('imgs/Backgrounds/black.png')
         self.bg_image = pygame.transform.scale(self.bg_image, (self.hub.WINDOW_WIDTH, self.hub.WINDOW_HEIGHT))
         self.bg_rect = self.bg_image.get_rect()
 
@@ -100,13 +100,13 @@ class GameScreen:
     def run_draw(self):
         self.screen.blit(self.bg_image, self.bg_rect)
         self.player_ship.draw()
-        self.sb.draw()
         self.draw_bullets()
         self.draw_enemies()
         self.enemy_bullets.draw(self.screen)
         self.draw_player_destruction()
         self.draw_enemy_destruction()
         self.draw_ufos()
+        self.sb.draw()
 
     def add_bullet(self):
         new_bullet = Bullet(self.hub, self.player_ship)

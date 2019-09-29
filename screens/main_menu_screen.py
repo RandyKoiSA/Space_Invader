@@ -2,11 +2,20 @@ import pygame
 import sys
 from pygame.locals import *
 from customs.button import Button
+from customs.text import Text
 
 class MainMenuScreen:
     def __init__(self, hub):
         self.hub = hub
         self.screen = hub.main_screen
+
+        # Title text
+        self.title_text = Text(self.screen, "SPACE INVADER")
+        self.prep_title_text()
+
+        # Credit text
+        self.credit_text = Text(self.screen, "MADE BY RANDY LE")
+        self.prep_credit_text()
 
         # Play button
         self.play_button = Button(self.hub, "Play")
@@ -21,7 +30,7 @@ class MainMenuScreen:
         self.prep_high_score_button()
 
         # Background Image
-        self.bg_image = pygame.image.load('imgs/background.jpg')
+        self.bg_image = pygame.image.load('imgs/Backgrounds/black.png')
         self.bg_image = pygame.transform.scale(self.bg_image, (self.hub.WINDOW_WIDTH, self.hub.WINDOW_HEIGHT))
         self.bg_rect = self.bg_image.get_rect()
 
@@ -44,6 +53,8 @@ class MainMenuScreen:
 
     def run_draw(self):
         self.screen.blit(self.bg_image, self.bg_rect)
+        self.title_text.draw()
+        self.credit_text.draw()
         self.play_button.draw()
         self.exit_button.draw()
         self.high_score_button.draw()
@@ -73,3 +84,13 @@ class MainMenuScreen:
     def prep_high_score_button(self):
         self.high_score_button.rect.center = self.screen.get_rect().center
         self.high_score_button.update_message_position()
+
+    def prep_title_text(self):
+        self.title_text.msg_image_rect.centerx = self.screen.get_rect().centerx
+        self.title_text.msg_image_rect.y = 50
+        self.title_text.update_message()
+
+    def prep_credit_text(self):
+        self.credit_text.msg_image_rect.centerx = self.screen.get_rect().centerx
+        self.credit_text.msg_image_rect.y = self.screen.get_rect().height - 50
+        self.credit_text.update_message()
