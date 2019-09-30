@@ -3,6 +3,7 @@ import sys
 from pygame.locals import *
 from customs.button import Button
 from customs.text import Text
+from screens.game_screen import GameScreen
 
 class MainMenuScreen:
     def __init__(self, hub):
@@ -34,6 +35,15 @@ class MainMenuScreen:
         self.bg_image = pygame.transform.scale(self.bg_image, (self.hub.WINDOW_WIDTH, self.hub.WINDOW_HEIGHT))
         self.bg_rect = self.bg_image.get_rect()
 
+        # Create enemy score images
+        self.enemy_one_score = pygame.image.load('imgs/enemy_one_score.png')
+        self.enemy_one_score_rect = self.enemy_one_score.get_rect()
+        self.enemy_two_score = pygame.image.load('imgs/enemy_two_score.png')
+        self.enemy_two_score_rect = self.enemy_two_score.get_rect()
+        self.enemy_three_score = pygame.image.load('imgs/enemy_three_score.png')
+        self.enemy_three_score_rect = self.enemy_three_score.get_rect()
+        self.prep_enemy_score()
+
     def run(self):
         self.run_event()
         # self.run_update()
@@ -59,9 +69,15 @@ class MainMenuScreen:
         self.exit_button.draw()
         self.high_score_button.draw()
 
+        self.screen.blit(self.enemy_one_score, self.enemy_one_score_rect)
+        self.screen.blit(self.enemy_two_score, self.enemy_two_score_rect)
+        self.screen.blit(self.enemy_three_score, self.enemy_three_score_rect)
+
+
     def check_buttons_clicked(self, mouse_x, mouse_y):
         if self.play_button.rect.collidepoint(mouse_x, mouse_y):
             self.hub.screen_mode = self.hub.screen_type['GameScreen']
+            self.hub.game_screen = GameScreen(self.hub)
             self.hub.game_mode.reset_stats()
         if self.exit_button.rect.collidepoint(mouse_x, mouse_y):
             pygame.quit()
@@ -94,3 +110,13 @@ class MainMenuScreen:
         self.credit_text.msg_image_rect.centerx = self.screen.get_rect().centerx
         self.credit_text.msg_image_rect.y = self.screen.get_rect().height - 50
         self.credit_text.update_message()
+
+    def prep_enemy_score(self):
+        self.enemy_one_score_rect.centerx = self.screen.get_rect().centerx
+        self.enemy_one_score_rect.y = 100
+
+        self.enemy_two_score_rect.centerx = self.screen.get_rect().centerx
+        self.enemy_two_score_rect.y = 150
+
+        self.enemy_three_score_rect.centerx = self.screen.get_rect().centerx
+        self.enemy_three_score_rect.y = 200

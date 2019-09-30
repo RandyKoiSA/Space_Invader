@@ -6,7 +6,7 @@ class GameMode:
         self.player_lives = 3
         self.speedup_scale = 1.1
         self.ship_speed_factor = 3
-        self.bullet_speed_factor = 3
+        self.bullet_speed_factor = 2
         self.enemy_speed_factor = 3
         self.level = 0
         self.score = 0
@@ -24,6 +24,7 @@ class GameMode:
         """ Increase speed """
         self.ship_speed_factor *= self.speedup_scale
         self.bullet_speed_factor *= self.speedup_scale
+        self.enemy_speed_factor *= self.speedup_scale
         self.enemy_speed_factor *= self.speedup_scale
         self.enemy_point_value += 50
 

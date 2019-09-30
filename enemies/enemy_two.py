@@ -11,6 +11,7 @@ class EnemyTwo(Enemy):
 
         self.hub = hub
         self.game_screen = self.hub.game_screen
+        self.value = 100
 
         self.image = pygame.image.load('imgs/Enemies/enemyBlack2.png')
         self.image = pygame.transform.scale(self.image, (50, 50))

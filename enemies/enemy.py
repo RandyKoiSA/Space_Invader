@@ -10,7 +10,7 @@ class Enemy(Sprite):
         super().__init__()
         self.game_hub = hub
         self.game_mode = self.game_hub.game_mode
-
+        self.value = 50
         # Load the enemy image
         self.image = pygame.image.load('imgs/Enemies/enemyRed1.png')
         self.image = pygame.transform.scale(self.image, (50, 50))

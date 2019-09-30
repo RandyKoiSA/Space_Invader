@@ -12,7 +12,7 @@ from enemies.enemy_two import EnemyTwo
 from enemies.enemy_three import EnemyThree
 from ship_destruction import ShipDestruction
 from enemies.ufo_enemy import UfoEnemy
-
+from wall import Wall
 
 class GameScreen:
     """ Game screen, were the game starts """
@@ -33,6 +33,9 @@ class GameScreen:
         self.enemy_destructions = Group()
         # Create a group for random ufos
         self.ufos = Group()
+        # Create a group for walls
+        self.walls = Group()
+        self.create_walls()
 
         self.enemy_bullets = Group()
 
@@ -99,6 +102,8 @@ class GameScreen:
 
     def run_draw(self):
         self.screen.blit(self.bg_image, self.bg_rect)
+
+        self.draw_walls()
         self.player_ship.draw()
         self.draw_bullets()
         self.draw_enemies()
@@ -144,6 +149,53 @@ class GameScreen:
                 new_enemy.rect.y = self.enemy.rect.height + 2 * self.enemy.rect.height * number_row
                 self.enemies.add(new_enemy)
 
+    def create_walls(self):
+        # Create left wall
+        for i in range (0, 15):
+            for j in range (0 ,5):
+                wall = Wall(self.hub)
+                wall.rect.x = (wall.rect.width * i) + 100
+                wall.rect.y = (self.screen.get_rect().height - 200) + (wall.rect.height * j)
+                self.walls.add(wall)
+
+        # Create middle right wall
+        for i in range (0, 15):
+            for j in range (0, 5):
+                wall = Wall(self.hub)
+                wall.rect.x = (wall.rect.width * i) + self.screen.get_rect().centerx + 150
+                wall.rect.y = (self.screen.get_rect().height - 200) + (wall.rect.height * j)
+                self.walls.add(wall)
+
+        # Create middle middle wall
+        for i in range (0, 8):
+            for j in range (0, 5):
+                wall = Wall(self.hub)
+                wall.rect.x = (wall.rect.width * i) + self.screen.get_rect().centerx
+                wall.rect.y = (self.screen.get_rect().height - 200) + (wall.rect.height * j)
+                self.walls.add(wall)
+
+            for j in range(0, 5):
+                wall = Wall(self.hub)
+                wall.rect.x = self.screen.get_rect().centerx - (wall.rect.width * i)
+                wall.rect.y = (self.screen.get_rect().height - 200) + (wall.rect.height * j)
+                self.walls.add(wall)
+
+        # Create middle left wall
+        for i in range (0, 15):
+            for j in range (0, 5):
+                wall = Wall(self.hub)
+                wall.rect.x = self.screen.get_rect().centerx - 150 - (wall.rect.width * i)
+                wall.rect.y = (self.screen.get_rect().height - 200) + (wall.rect.height * j)
+                self.walls.add(wall)
+
+        # Create right wall
+        for i in range (0, 15):
+            for j in range (0, 5):
+                wall = Wall(self.hub)
+                wall.rect.x = self.screen.get_rect().width - 100 - (wall.rect.width * i)
+                wall.rect.y = (self.screen.get_rect().height - 200) + (wall.rect.height * j)
+                self.walls.add(wall)
+
     def update_enemies(self):
         # Loop through all the enemies in the list
         # Update the enemy
@@ -179,14 +231,15 @@ class GameScreen:
         if collisions:
             for enemies in collisions.values():
                 self.hub.game_mode.score += self.hub.game_mode.enemy_point_value * len(enemies)
-                self.sb.prep_score()
                 self.hub.enemy_dies_sound.play()
 
                 # add enemy destruction
                 for enemy in enemies:
+                    self.hub.game_mode.score += enemy.value
                     destruction = ShipDestruction(self.hub, enemy, type='enemy')
                     self.enemy_destructions.add(destruction)
 
+            self.sb.prep_score()
             self.check_high_score()
 
         # Ufo has been hit
@@ -195,9 +248,6 @@ class GameScreen:
             for ufos in collisions.values():
                 for ufo in ufos:
                     self.hub.game_mode.score += ufo.value
-
-
-
 
     def ship_hit(self):
         """ Respond to ship being hit by aliens"""
@@ -262,6 +312,9 @@ class GameScreen:
                 self.destructions.add(destruction)
                 break
 
+        collisions = pygame.sprite.groupcollide(self.enemy_bullets, self.walls, True, True)
+        collisions = pygame.sprite.groupcollide(self.bullets, self.walls, True, True)
+
     def draw_player_destruction(self):
         for destruction in self.destructions:
             destruction.draw()
@@ -291,3 +344,7 @@ class GameScreen:
     def draw_ufos(self):
         for ufo in self.ufos:
             ufo.draw()
+
+    def draw_walls(self):
+        for wall in self.walls:
+            wall.draw()

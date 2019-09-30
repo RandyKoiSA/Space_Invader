@@ -11,6 +11,7 @@ class EnemyThree(Enemy):
 
         self.hub = hub
         self.game_screen = self.hub.game_screen
+        self.value = 150
 
         # Set up enemy
         self.image = pygame.image.load('imgs/Enemies/enemyBlue4.png')
