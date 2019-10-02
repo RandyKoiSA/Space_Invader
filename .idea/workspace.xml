@@ -2,14 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="922700f7-69ce-468a-b865-41ea7bd781dc" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/wall.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/enemies/enemy.py" beforeDir="false" afterPath="$PROJECT_DIR$/enemies/enemy.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/enemies/enemy_three.py" beforeDir="false" afterPath="$PROJECT_DIR$/enemies/enemy_three.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/enemies/enemy_two.py" beforeDir="false" afterPath="$PROJECT_DIR$/enemies/enemy_two.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gamemode.py" beforeDir="false" afterPath="$PROJECT_DIR$/gamemode.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hub.py" beforeDir="false" afterPath="$PROJECT_DIR$/hub.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/screens/game_screen.py" beforeDir="false" afterPath="$PROJECT_DIR$/screens/game_screen.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/screens/main_menu_screen.py" beforeDir="false" afterPath="$PROJECT_DIR$/screens/main_menu_screen.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ship_destruction.py" beforeDir="false" afterPath="$PROJECT_DIR$/enemies/ship_destruction.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -36,6 +33,7 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\97ran\Google Drive\CSUF Classes\2019_Fall\CPSC386_IntroToGameDesign\Space_Invader\enemies" />
       <recent name="D:\Users\Randy\Google Drive School\CSUF Classes\2019_Fall\CPSC386_IntroToGameDesign\Space_Invader\players" />
       <recent name="D:\Users\Randy\Google Drive School\CSUF Classes\2019_Fall\CPSC386_IntroToGameDesign\Space_Invader\customs" />
       <recent name="D:\Users\Randy\Google Drive School\CSUF Classes\2019_Fall\CPSC386_IntroToGameDesign\Space_Invader\enemies" />

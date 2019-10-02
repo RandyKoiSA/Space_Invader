@@ -28,8 +28,12 @@ class Hub:
             'up': False,
             'down': False,
             'left': False,
-            'right': False
+            'right': False,
+            'shooting': False
         }
+
+        self.delayShot = 360
+        self.nextShot = pygame.time.get_ticks() + self.delayShot
 
         self.game_screen = GameScreen(self)
         self.main_menu_screen = MainMenuScreen(self)

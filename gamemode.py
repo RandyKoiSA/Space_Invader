@@ -5,7 +5,7 @@ class GameMode:
         self.hub = hub
         self.player_lives = 3
         self.speedup_scale = 1.1
-        self.ship_speed_factor = 3
+        self.ship_speed_factor = 8
         self.bullet_speed_factor = 2
         self.enemy_speed_factor = 3
         self.level = 0

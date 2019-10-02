@@ -10,7 +10,7 @@ from score_board import ScoreBoard
 import random
 from enemies.enemy_two import EnemyTwo
 from enemies.enemy_three import EnemyThree
-from ship_destruction import ShipDestruction
+from enemies.ship_destruction import ShipDestruction
 from enemies.ufo_enemy import UfoEnemy
 from wall import Wall
 
@@ -25,20 +25,28 @@ class GameScreen:
 
         # Create a group for bullets
         self.bullets = Group()
+
         # Create a group for enemies
         self.enemies = Group()
+
         # Create a group for player destruction
         self.destructions = Group()
+
         # Create a group for enemy destruction
         self.enemy_destructions = Group()
+
         # Create a group for random ufos
         self.ufos = Group()
+
         # Create a group for walls
         self.walls = Group()
+        # Wall is only initialize onced during the entire game.
         self.create_walls()
 
+        # Create enemy bullets when spawned
         self.enemy_bullets = Group()
 
+        # Get a test enemy to get size and width
         self.enemy = Enemy(self.hub)
 
         self.available_space_x = self.hub.WINDOW_WIDTH - 2 * self.enemy.rect.width
@@ -74,7 +82,7 @@ class GameScreen:
                     self.hub.controller['right'] = True
                     self.hub.controller['left'] = False
                 if event.key == K_SPACE:
-                    self.add_bullet()
+                    self.hub.controller['shooting'] = True
                 if event.key == K_t:
                     self.create_fleet()
 
@@ -83,6 +91,8 @@ class GameScreen:
                     self.hub.controller['left'] = False
                 if event.key == K_d:
                     self.hub.controller['right'] = False
+                if event.key == K_SPACE:
+                    self.hub.controller['shooting'] = False
 
     def run_update(self):
         # add ufo
@@ -91,6 +101,10 @@ class GameScreen:
             print('ufo spawned')
             ufo = UfoEnemy(self.hub)
             self.ufos.add(ufo)
+
+        if self.hub.controller['shooting'] is True and pygame.time.get_ticks() > self.hub.nextShot:
+            self.hub.nextShot = pygame.time.get_ticks() + self.hub.delayShot
+            self.add_bullet()
 
         self.player_ship.update()
         self.update_bullets()
